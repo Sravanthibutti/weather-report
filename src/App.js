@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React, { useState, useEffect } from 'react';
+import './weather.css'; // Import your global styles
 
-function App() {
+const App = () => {
+  const [weatherData, setWeatherData] = useState(null);
+
+  useEffect(() => {
+    // Simulate fetching weather data (replace with actual fetching logic)
+    const fetchData = async () => {
+      try {
+        // Replace this URL with your actual API endpoint for fetching weather data
+        const response = await fetch('https://api.example.com/weather');
+        const data = await response.json();
+        setWeatherData(data);
+      } catch (error) {
+        console.error('Error fetching weather data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <h1>Your Weather App</h1>
+      <weather weatherData={weatherData} />
+      {/* Add other components or content as needed */}
     </div>
   );
-}
+};
 
 export default App;
